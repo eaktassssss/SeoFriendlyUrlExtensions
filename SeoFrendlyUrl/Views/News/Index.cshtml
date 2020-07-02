@@ -1,0 +1,39 @@
+﻿@model List<News>
+@using SeoFrendlyUrl.Extensions
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="jumbotron">
+        <h2>Haberler</h2>
+
+    </div>
+    <div align="right"><b>@Model.First().CreatedDate</b></div>
+</div>
+
+<div>
+    <table class="table">
+        @{
+            @:<tr>
+                var count = 0;
+                foreach (var news in Model)
+                {
+                    if (count % 2 == 0)
+                    {
+                    @:</tr><tr>
+                    }
+                    <td>
+                        <a href="/news/@Url.FriendlyUrl(news.Title)/@news.Id" target="_blank" style="text-decoration: none;">
+                            <h2> @news.Title</h2>
+                            <div>
+                                <img src="/images/@news.Image" width="500px">
+                            </div>
+                        </a>
+                    </td>
+                    count++;
+                }
+            @:</tr>
+        }
+    </table>
+</div>
